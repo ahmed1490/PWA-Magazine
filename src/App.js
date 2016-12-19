@@ -5,14 +5,13 @@ import ArticleList from './containers/ArticleList';
 
 class App extends Component {
     render() {
-        console.log(location.hash)
         return (
             <div className="App">
                 <div className="App-header">
                     <h2>Zalando Fashion</h2>
                 </div>
-                <div>
-                    {/*<ArticleList />*/}
+                <div id="contentContainer">
+                    <ArticleList />
                     <ReactCSSTransitionGroup
                         component="section"
                         transitionName="example"
@@ -21,7 +20,7 @@ class App extends Component {
                         transitionEnterTimeout={300}
                         transitionLeaveTimeout={300}
                     >
-                        {React.cloneElement(this.props.children, {
+                        {React.cloneElement(this.props.children || <div />, {
                             key: location.hash
                         })}
                     </ReactCSSTransitionGroup>
