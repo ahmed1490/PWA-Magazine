@@ -1,0 +1,12 @@
+.article_title {
+	font-family: Avenir Next Condensed, Helvetica, sans-serif;
+	font-size: 22px;
+	line-height: 30px;
+	font-weight: 500;
+}
+
+.article_excerpt {
+	font-family: Georgia, serif;
+	font-size: 15px;
+	line-height: 23px;
+}
