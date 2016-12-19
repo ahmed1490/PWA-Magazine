@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
 var ReactCanvas = require('react-canvas');
 var Page = require('./Page');
 var articles = [
@@ -92,6 +91,7 @@ var Timeline = React.createClass({
     },
 
     getSize: function () {
+        console.log('test', document.getElementById('root').getBoundingClientRect());
         return document.getElementById('root').getBoundingClientRect();
     },
 
