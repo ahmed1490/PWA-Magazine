@@ -1,22 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './App.css';
-// var Timeline = require('./components/Timeline');
+import ArticleList from './containers/ArticleList';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        console.log(location.hash)
+        return (
+            <div className="App">
+                <div className="App-header">
+                    <h2>Zalando Fashion</h2>
+                </div>
+                <div>
+                    {/*<ArticleList />*/}
+                    <ReactCSSTransitionGroup
+                        component="section"
+                        transitionName="example"
+                        transitionAppear={true}
+                        transitionAppearTimeout={500}
+                        transitionEnterTimeout={300}
+                        transitionLeaveTimeout={300}
+                    >
+                        {React.cloneElement(this.props.children, {
+                            key: location.hash
+                        })}
+                    </ReactCSSTransitionGroup>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;

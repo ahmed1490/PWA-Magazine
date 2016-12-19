@@ -43,9 +43,10 @@ var Page = React.createClass({
         titleStyle.height = this.titleMetrics.height;
         excerptStyle.top = titleStyle.top + titleStyle.height + CONTENT_INSET;
         excerptStyle.height = this.props.height - excerptStyle.top - CONTENT_INSET;
-
         return (
-            <Group style={groupStyle}>
+            <Group style={groupStyle}
+                onClick={() => this.props.openArticle(this.props.pageIndex)}
+                >
                 <Image style={imageStyle} src={this.props.article.imageUrl} fadeIn={true} useBackingStore={true} />
                 <Group style={this.getTextGroupStyle()} useBackingStore={true}>
                     <Text style={titleStyle}>{this.props.article.title}</Text>

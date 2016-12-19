@@ -1,6 +1,7 @@
-var React = require('react');
+import React, {Component} from 'react';
 var ReactCanvas = require('react-canvas');
 var Page = require('./Page');
+
 var articles = [
     {
         title: '10 Unbelievable Secrets That Will Make Your Airline Pilot Nervous',
@@ -57,17 +58,26 @@ var articles = [
 
 var Surface = ReactCanvas.Surface;
 var ListView = ReactCanvas.ListView;
-import {Router, Route, Link, browserHistory} from 'react-router';
 
-var Timeline = React.createClass({
+export default class Timeline extends Component{
 
+    constructor(props) {
+        super(props);
+        this.renderPage = this.renderPage.bind(this);
+        this.getNumberOfPages = this.getNumberOfPages.bind(this);
+        this.getPageHeight = this.getPageHeight.bind(this);
+        this.openArticle = this.openArticle.bind(this);
+    }
 
-    render: function () {
+    openArticle(pageIndex){
+        this.props.openArticle(pageIndex);
+    }
+
+    render() {
         var size = this.getSize();
         return (
-            <Surface top={0} left={0} width={size.width} height={size.height} onClick={
-                console.log("surface", arguments)
-            }>
+            <Surface
+                top={0} left={0} width={size.width} height={size.height}>
                 <ListView
                     style={this.getListViewStyle()}
                     snapping={true}
@@ -78,32 +88,32 @@ var Timeline = React.createClass({
                     itemGetter={this.renderPage} />
             </Surface>
         );
-    },
+    }
 
-    renderPage: function (pageIndex, scrollTop) {
+    renderPage(pageIndex, scrollTop) {
         var size = this.getSize();
         var article = articles[pageIndex % articles.length];
         var pageScrollTop = pageIndex * this.getPageHeight() - scrollTop;
         return (
             <Page
-                onClick={console.log("page", arguments)}
+                openArticle={this.props.openArticle}
                 width={size.width}
                 height={size.height}
                 article={article}
                 pageIndex={pageIndex}
                 scrollTop={pageScrollTop} />
         );
-    },
+    }
 
-    getSize: function () {
+    getSize() {
         // console.log('test', document.getElementById('root').getBoundingClientRect());
         return document.getElementById('root').getBoundingClientRect();
-    },
+    }
 
     // ListView
     // ========
 
-    getListViewStyle: function () {
+    getListViewStyle() {
         var size = this.getSize();
         return {
             top: 0,
@@ -111,16 +121,14 @@ var Timeline = React.createClass({
             width: size.width,
             height: size.height
         };
-    },
+    }
 
-    getNumberOfPages: function () {
+    getNumberOfPages() {
         return 1000;
-    },
+    }
 
-    getPageHeight: function () {
+    getPageHeight() {
         return this.getSize().height;
     }
 
-});
-
-module.exports = Timeline;
+}

@@ -4,13 +4,12 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 30px;
 }
 
 .App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
+  padding: 10px;
   color: white;
 }
 
@@ -37,6 +36,48 @@ html, body {
   background: #fff;
   position: relative;
   height: 100%;
-  max-width: 600px;
   max-height: 1000px;
+}
+
+/*.example-enter {
+  transform: translate(100%);
+}
+.example-enter.example-enter-active {
+  transform: translate(0%);
+  transition: transform 300ms ease-in-out;
+}
+.example-leave {
+  transform: translate(0%);
+}
+.example-leave.example-leave-active {
+  transform: translate(100%);
+  transition: transform 300ms ease-in-out;
+}*/
+
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.example-leave-active {
+  opacity: 0;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
 }
