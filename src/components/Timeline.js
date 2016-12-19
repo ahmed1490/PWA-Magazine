@@ -1,5 +1,3 @@
-'use strict';
-
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactCanvas = require('react-canvas');
@@ -61,7 +59,7 @@ var articles = [
 var Surface = ReactCanvas.Surface;
 var ListView = ReactCanvas.ListView;
 
-var App = React.createClass({
+var Timeline = React.createClass({
 
     render: function () {
         var size = this.getSize();
@@ -94,7 +92,7 @@ var App = React.createClass({
     },
 
     getSize: function () {
-        return document.getElementById('main').getBoundingClientRect();
+        return document.getElementById('root').getBoundingClientRect();
     },
 
     // ListView
@@ -119,3 +117,5 @@ var App = React.createClass({
     }
 
 });
+
+module.exports = Timeline;

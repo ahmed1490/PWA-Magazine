@@ -155,6 +155,13 @@ module.exports = {
           name: 'static/media/[name].[hash:8].[ext]'
         }
       }
+    ],
+    postLoaders: [
+      {
+              test: /\.js$/,
+              include: /linebreak/,
+              loader: "transform?brfs"
+      }
     ]
   },
   
