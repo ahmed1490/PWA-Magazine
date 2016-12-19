@@ -4,8 +4,8 @@ import './App.css';
 import ArticleList from './containers/ArticleList';
 
 class App extends Component {
+
     render() {
-        console.log(location.hash)
         return (
             <div className="App">
                 <div className="App-header">
