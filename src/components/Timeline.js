@@ -57,18 +57,22 @@ var articles = [
 
 var Surface = ReactCanvas.Surface;
 var ListView = ReactCanvas.ListView;
+import {Router, Route, Link, browserHistory} from 'react-router';
 
 var Timeline = React.createClass({
+
 
     render: function () {
         var size = this.getSize();
         return (
-            <Surface top={0} left={0} width={size.width} height={size.height}>
+            <Surface top={0} left={0} width={size.width} height={size.height} onClick={
+                console.log("surface", arguments)
+            }>
                 <ListView
                     style={this.getListViewStyle()}
                     snapping={true}
-                    scrollingDeceleration={0.92}
-                    scrollingPenetrationAcceleration={0.13}
+                    scrollingDeceleration={0.95}
+                    scrollingPenetrationAcceleration={0.9}
                     numberOfItemsGetter={this.getNumberOfPages}
                     itemHeightGetter={this.getPageHeight}
                     itemGetter={this.renderPage} />
@@ -82,6 +86,7 @@ var Timeline = React.createClass({
         var pageScrollTop = pageIndex * this.getPageHeight() - scrollTop;
         return (
             <Page
+                onClick={console.log("page", arguments)}
                 width={size.width}
                 height={size.height}
                 article={article}
@@ -91,7 +96,7 @@ var Timeline = React.createClass({
     },
 
     getSize: function () {
-        console.log('test', document.getElementById('root').getBoundingClientRect());
+        // console.log('test', document.getElementById('root').getBoundingClientRect());
         return document.getElementById('root').getBoundingClientRect();
     },
 

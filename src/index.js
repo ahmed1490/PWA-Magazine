@@ -2,10 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
-// import Timeline from './components/Timeline';
-var Timeline = require('./components/Timeline');
+import {Router, Route, Link, browserHistory} from 'react-router';
+import Timeline from './components/Timeline';
+
+let RouterNav = <Router history={browserHistory}>
+    <Router path="/" component={Timeline}>
+        <Router path="/:articleId" component={App}/>
+    </Router>
+</Router>;
+
 
 ReactDOM.render(
-  <Timeline />,
-  document.getElementById('root')
+    RouterNav,
+    document.getElementById('root')
 );
