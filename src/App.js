@@ -2,17 +2,11 @@ import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './App.css';
 import ArticleList from './containers/ArticleList';
-import Scraper from './utils/scraper.js';
 
 class App extends Component {
 
-    state = {
-        newsArticleLinks: []
-    };
-
     render() {
         //<div className="App-header"><h2>Zalando Fashion</h2></div>
-        console.log(this.props.newsArticleLinks);
         return (
             <div className="App">
 

@@ -16,7 +16,7 @@ class Article extends Component {
         return (
             <div className={'article_view'} style={divStyle}>
                 <div className={'article_wrapper'}>
-                    <img className={'article_image'} src={article.imageUrl} />
+                    <img className={'article_image'} src={article.imageUrl} role="presentation" />
                     <div className={'article_title'}>
                         One fabulous article that we are going to see here
                     </div>

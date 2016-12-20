@@ -1,23 +1,59 @@
+const filesToCache = [
+  './',
+  '/static/js/bundle.js'
+];
+
+const cacheName = 'z.fm-v1'
+
 self.addEventListener('install', function (event) {
     console.log('Event: Install');
 
-    /*event.waitUntil(
-     //Add the files to cache here
-     );*/
+    event.waitUntil( //this ensures that the service worker will not install until the code inside waitUntil() has successfully occurred.
+        caches.open('z.fm-v1')
+        .then(function(cache) {
+            return cache.addAll(filesToCache)
+            .then(function () {
+                console.info('All files are cached');
+                return self.skipWaiting(); //To forces the waiting service worker to become the active service worker
+            })
+            .catch(function (error) {
+                console.error('Failed to cache', error);
+            })
+        })
+    );
+});
+
+
+self.addEventListener('fetch', function (event) {
+    console.log('Event: Fetch', event.request.url);
+
+    var request = event.request;
+
+    //Tell the browser to wait for network request and respond with below
+    caches.match(request).then(function(response) {
+      if (response) {
+        console.log('from cache', response.url);
+        return response;
+      }
+
+      //if request is not cached, add it to cache
+      return fetch(request, {mode: 'no-cors'}).then((response) => {
+        var responseToCache = response.clone();
+
+        caches.open(cacheName).then((cache) => {
+            cache.put(request, responseToCache)
+                .then(() => console.log('to cache', response.url))
+                .catch(function(err) {
+                  console.warn(request.url + ': ' + err.message);
+                });
+          });
+
+        return response;
+      });
+    })
 });
 
 self.addEventListener('activate', function (event) {
     console.log('Event: Activate');
 
-});
-
-self.addEventListener('fetch', function (event) {
-    console.log('Event: Fetch', event.request.url);
-
-    //Tell the browser to wait for network request and respond with below
-    event.respondWith(
-        //Check the caches.
-        //If request is already in cache, return its response
-        //Else, make a fetch and add it to the cache and return the response
-    )
 });
