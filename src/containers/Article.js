@@ -20,7 +20,7 @@ class Article extends Component {
                     <div className={'article_title'}>
                         One fabulous article that we are going to see here
                     </div>
-
+                </div>
                 <div className={'article_excerpt'}>
                     {article.excerpt}
                 </div>
