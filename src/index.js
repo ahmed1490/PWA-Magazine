@@ -15,18 +15,12 @@ if ('serviceWorker' in navigator) {
         .then(function () {
             console.log('Service Worker Registered');
         });
-
-    newsArticlesLinksPromise = serviceWorkerPromise
-        .then(Scraper.getArticleLinks)
-
-} else {
-    newsArticlesLinksPromise = Scraper.getArticleLinks()
 }
 
 
 
 let RouterNav = <Router history={hashHistory}>
-    <Router path="/" component={() => (<App newsArticleLinksPromise={newsArticlesLinksPromise} />)}>
+    <Router path="/" component={App}>
         <Router path="/articles/:articleId" component={Article}/>
     </Router>
 </Router>;

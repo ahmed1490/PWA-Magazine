@@ -10,26 +10,6 @@ class App extends Component {
         newsArticleLinks: []
     };
 
-    _fetchNewsArticleLinks(){
-        this.setState({
-            newsArticleLinks: Scraper.getArticleLinks()
-        });
-    }
-
-    _fetchNewsArticle(){
-
-    }
-
-    componentWillMount(){
-        this.props.newsArticleLinksPromise.then((articleLinks) => {
-            console.log(articleLinks)
-        });
-    }
-
-    componentWillReceiveProps(nextProps){
-        console.log(this.props.newsArticleLinks, nextProps);
-    }
-
     render() {
         //<div className="App-header"><h2>Zalando Fashion</h2></div>
         console.log(this.props.newsArticleLinks);

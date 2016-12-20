@@ -49,6 +49,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "lodash": "^4.17.2",
     "react": "~0.14.8",
     "react-addons-css-transition-group": "^15.4.1",
@@ -59,7 +60,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "server": "node server"
   },
   "jest": {
     "collectCoverageFrom": [
