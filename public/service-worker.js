@@ -37,19 +37,20 @@ self.addEventListener('fetch', function (event) {
       }
 
       //if request is not cached, add it to cache
-      return fetch(request, {mode: 'no-cors'}).then((response) => {
-        var responseToCache = response.clone();
+      return fetch(request, {mode: 'no-cors'})
+        .then((response) => {
+            var responseToCache = response.clone();
 
-        caches.open(cacheName).then((cache) => {
-            cache.put(request, responseToCache)
-                .then(() => console.log('to cache', response.url))
-                .catch(function(err) {
-                  console.warn(request.url + ': ' + err.message);
-                });
-          });
+            caches.open(cacheName).then((cache) => {
+                cache.put(request, responseToCache)
+                    .then(() => console.log('to cache', response.url))
+                    .catch(function(err) {
+                      console.warn(request.url + ': ' + err.message);
+                    });
+              });
 
-        return response;
-      });
+            return response;
+        });
     })
 });
 

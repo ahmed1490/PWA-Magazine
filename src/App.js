@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './App.css';
-import ArticleList from './containers/ArticleList';
+import SliderTabs from './containers/SliderTabs';
 
 class App extends Component {
 
@@ -11,7 +11,7 @@ class App extends Component {
             <div className="App">
 
                 <div id="contentContainer">
-                    <ArticleList />
+                    <SliderTabs />
                     <ReactCSSTransitionGroup
                         component="section"
                         transitionName="example"
