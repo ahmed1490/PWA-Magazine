@@ -11,8 +11,8 @@ class App extends Component {
         return (
             <div className="App">
 
-                <div>
-                    {/*<ArticleList />*/}
+                <div id="contentContainer">
+                    <ArticleList />
                     <ReactCSSTransitionGroup
                         component="section"
                         transitionName="example"
@@ -21,11 +21,12 @@ class App extends Component {
                         transitionEnterTimeout={300}
                         transitionLeaveTimeout={300}
                     >
-                        {React.cloneElement(this.props.children, {
+                        {React.cloneElement(this.props.children || <div />, {
                             key: location.hash
                         })}
                     </ReactCSSTransitionGroup>
                 </div>
+
             </div>
         );
     }

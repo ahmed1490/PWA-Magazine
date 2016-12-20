@@ -7,17 +7,19 @@ const abc=     {
         imageUrl: 'https://placekitten.com/360/420'
     };
 
+const divStyle = {
+    width:'100%',height:'100%',position:'absolute',top:0,background:'#fff'}
+
 class Article extends Component {
     render() {
         const article = abc;
         return (
-            <div className={'article_view'}>
+            <div className={'article_view'} style={divStyle}>
                 <div className={'article_wrapper'}>
                     <img className={'article_image'} src={article.imageUrl} />
                     <div className={'article_title'}>
                         One fabulous article that we are going to see here
                     </div>
-                </div>
 
                 <div className={'article_excerpt'}>
                     {article.excerpt}
