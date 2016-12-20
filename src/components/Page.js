@@ -8,7 +8,7 @@ var FontFace = ReactCanvas.FontFace;
 var measureText = ReactCanvas.measureText;
 
 var CONTENT_INSET = 14;
-var TEXT_SCROLL_SPEED_MULTIPLIER = 0.6;
+var TEXT_SCROLL_SPEED_MULTIPLIER = 0.1;
 var TEXT_ALPHA_SPEED_OUT_MULTIPLIER = 1.25;
 var TEXT_ALPHA_SPEED_IN_MULTIPLIER = 2.6;
 var IMAGE_LAYER_INDEX = 2;

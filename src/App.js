@@ -6,11 +6,11 @@ import ArticleList from './containers/ArticleList';
 class App extends Component {
 
     render() {
+        //<div className="App-header"><h2>Zalando Fashion</h2></div>
+
         return (
             <div className="App">
-                <div className="App-header">
-                    <h2>Zalando Fashion</h2>
-                </div>
+
                 <div>
                     {/*<ArticleList />*/}
                     <ReactCSSTransitionGroup

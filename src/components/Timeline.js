@@ -81,8 +81,8 @@ export default class Timeline extends Component{
                 <ListView
                     style={this.getListViewStyle()}
                     snapping={true}
-                    scrollingDeceleration={0.95}
-                    scrollingPenetrationAcceleration={0.9}
+                    scrollingDeceleration={0.92}
+                    scrollingPenetrationAcceleration={0.13}
                     numberOfItemsGetter={this.getNumberOfPages}
                     itemHeightGetter={this.getPageHeight}
                     itemGetter={this.renderPage} />

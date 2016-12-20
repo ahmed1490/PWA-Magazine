@@ -9,15 +9,18 @@ const abc=     {
 
 class Article extends Component {
     render() {
-    	const article = abc;
+        const article = abc;
         return (
-            <div>
-            	<img src={article.imageUrl} />
-            	<div className={'article_title'}>
-                	One fabulous article that we are going to see here
+            <div className={'article_view'}>
+                <div className={'article_wrapper'}>
+                    <img className={'article_image'} src={article.imageUrl} />
+                    <div className={'article_title'}>
+                        One fabulous article that we are going to see here
+                    </div>
                 </div>
+
                 <div className={'article_excerpt'}>
-                	{article.excerpt}
+                    {article.excerpt}
                 </div>
             </div>
         );
