@@ -20,10 +20,10 @@ const styles = {
     // backgroundColor: '#FEA900',
   },
   slide2: {
-    backgroundColor: '#B3DC4A',
+    backgroundColor: '#ff6e40',
   },
   slide3: {
-    backgroundColor: '#6AC0FF',
+    backgroundColor: '#ff6e40',
   },
 };
 
@@ -52,7 +52,7 @@ class DemoTabs extends Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
-          <Tabs value={index}>
+          <Tabs value={index} style={{backgroundColor: '#ff6e40'}}>
             <Tab label="News" value={0} onClick={this.handleChangeTabs.bind(null, 0)} />
             <Tab label="Stories" value={1} onClick={this.handleChangeTabs.bind(null, 1)} />
             <Tab label="Inspiration" value={2} onClick={this.handleChangeTabs.bind(null, 2)} />
