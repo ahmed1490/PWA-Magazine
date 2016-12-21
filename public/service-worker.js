@@ -35,31 +35,35 @@ self.addEventListener('fetch', function (event) {
 
     var request = event.request;
 
-    //Tell the browser to wait for network request and respond with below
-    caches.match(request).then(function(response) {
-      console.log('response from cache', response);
-      if (response) {
-        console.log('from cache url', response.url);
-        return response;
-      }
 
-      //if request is not cached, add it to cache
-      console.log('fetching', request.url);
-      return fetch(request, {mode: 'no-cors'})
-        .then((response) => {
-            var responseToCache = response.clone();
+    //Tell the browser to wait for newtwork request and respond with below
+    event.respondWith(
+      //Tell the browser to wait for network request and respond with below
+      caches.match(request).then(function(response) {
+        console.log('response from cache', response);
+        if (response) {
+          console.log('from cache url', response.url);
+          return response;
+        }
 
-            caches.open(cacheName).then((cache) => {
-                cache.put(request, responseToCache)
-                    .then(() => console.log('to cache', response.url))
-                    .catch(function(err) {
-                      console.warn(request.url + ': ' + err.message);
-                    });
-              });
+        //if request is not cached, add it to cache
+        console.log('fetching', request.url);
+        return fetch(request, {mode: 'no-cors'})
+          .then((response) => {
+              var responseToCache = response.clone();
 
-            return response;
-        });
-    })
+              caches.open(cacheName).then((cache) => {
+                  cache.put(request, responseToCache)
+                      .then(() => console.log('to cache', response.url))
+                      .catch(function(err) {
+                        console.warn(request.url + ': ' + err.message);
+                      });
+                });
+
+              return response;
+          });
+      })
+    );
 });
 
 
