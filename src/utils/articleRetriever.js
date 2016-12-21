@@ -6,7 +6,7 @@ let articleData = [];
 
 
 function getArticleLinks() {
-    return articleLinksPromise || fetch(`${CONSTANTS.serverDomain}getNewsArticleLinks`, {
+    return articleLinksPromise || fetch(`/getNewsArticleLinks`, {
         method: "GET",
         headers: {
             "Accept": "application/json",
@@ -18,7 +18,7 @@ function getArticleLinks() {
 }
 
 function getArticle(articleLinkData, retries = 10) {
-    return fetch(`${CONSTANTS.serverDomain}getNewsArticleDescription?articleLink=${encodeURIComponent(articleLinkData.link)}`)
+    return fetch(`/getNewsArticleDescription?articleLink=${encodeURIComponent(articleLinkData.link)}`)
         .then(response => {
             return response.json();
         })
