@@ -1,0 +1,20 @@
+{
+  "name": "Zalando.Fashion",
+  "short_name": "Z.Fashion",
+  "description": "Zalando editorials for latest fashion.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff",
+  "theme_color": "#f00",
+  "icons": [{
+      "src": "./images/icons/android-chrome-192x192_orig.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "./images/icons/android-chrome-512x512_orig.png",
+      "type": "image/png",
+      "sizes": "512x512"
+  }]
+}
