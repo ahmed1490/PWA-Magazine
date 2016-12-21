@@ -52,10 +52,10 @@ class ArticleSlider extends Component {
 
     componentDidMount(){
         let app = this;
-        window.onpopstate = function(event){
+        /*window.onpopstate = function(event){
             event.preventDefault();
             app.goHome()
-        };
+        };*/
     }
 
     handleChangeIndex = (index) => {
@@ -80,7 +80,7 @@ class ArticleSlider extends Component {
                     {renderedArticlesMarkup}
                 </SwipeableViews>}
 
-                <div style={{position: 'relative'}}>
+                <div >
                     <MuiThemeProvider muiTheme={getMuiTheme()}>
                         <div className="home-icon-container">
                             <HomeIcon color='#319FD6' backgroundColor="#fff" onClick={this.goHome}/>
@@ -97,6 +97,7 @@ class ArticleSlider extends Component {
             </div>
         );
     }
+
 }
 
 export default ArticleSlider;

@@ -1,11 +1,14 @@
-//Cache polyfil to support cacheAPI in all browsers
-importScripts('./cache-polyfill.js');
 
 const cacheName = 'z.fm-v1';
 
 const filesToCache = [
   './',
-  '/static/js/bundle.js'
+  './index.html',
+  '/static/js/bundle.js',
+  './js/offline.js',
+  './js/toast.js',
+  '/cache-polyfill.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', function (event) {
@@ -29,11 +32,16 @@ self.addEventListener('fetch', function (event) {
 
     //Tell the browser to wait for network request and respond with below
     caches.match(request).then(function(response) {
+      console.log('response from cache', response);
       if (response) {
+
+        console.log('from cache url', response.url);
+
         return response;
       }
 
       //if request is not cached, add it to cache
+      console.log('fetching', request.url);
       return fetch(request, {mode: 'no-cors'})
         .then((response) => {
             var responseToCache = response.clone();

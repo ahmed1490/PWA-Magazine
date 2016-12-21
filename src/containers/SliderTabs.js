@@ -66,6 +66,7 @@ class DemoTabs extends Component {
             </MuiThemeProvider>
         );
     }
+
 }
 
 export default DemoTabs;
