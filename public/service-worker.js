@@ -5,7 +5,10 @@ const cacheName = 'z.fm-v1';
 
 const filesToCache = [
   './',
-  '/static/js/bundle.js'
+  '/static/js/bundle.js',
+  './js/offline.js',
+  './js/toast.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', function (event) {

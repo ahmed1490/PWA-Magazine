@@ -1,6 +1,6 @@
 {
-  "name": "Zalando.FashionMagazine",
-  "short_name": "Z.FM",
+  "name": "Zalando.Fashion",
+  "short_name": "Z.Fashion",
   "description": "Zalando editorials for latest fashion.",
   "start_url": "index.html",
   "display": "standalone",
