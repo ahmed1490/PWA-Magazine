@@ -46,23 +46,21 @@ var Page = React.createClass({
         excerptStyle.top = titleStyle.top + titleStyle.height + CONTENT_INSET;
         excerptStyle.height = this.props.height - excerptStyle.top - CONTENT_INSET;
 
+
         let article = this.props.article;
         return (
             article ? <Group style={groupStyle}
                 onClick={() => this.props.openArticle(this.props.pageIndex)}
                 >
-                    {this.props.article.imageLink && (<Image style={imageStyle} src={`${CONSTANTS.serverDomain}getImage?imageLink=${encodeURIComponent(this.props.article.imageLink)}`}
+                    {article.imageLink && (<Image style={imageStyle} src={`${CONSTANTS.serverDomain}getImage?imageLink=${encodeURIComponent(this.props.article.imageLink)}`}
                        fadeIn={true} useBackingStore={true} />)}
-                <Group style={this.getTextGroupStyle()} useBackingStore={true}>
-                    <Text style={titleStyle}>{this.props.article.heading}</Text>
-                    <Text style={excerptStyle}>{this.props.article.subtitle}</Text>
+                <Group fadeIn={true} style={this.getTextGroupStyle()} useBackingStore={true}>
+                    <Text style={titleStyle}>{article.heading}</Text>
+                    <Text style={excerptStyle}>{article.subtitle}</Text>
                 </Group>
             </Group> : <div />
         );
     },
-
-    // Styles
-    // ======
 
     getGroupStyle: function () {
         return {
@@ -74,7 +72,7 @@ var Page = React.createClass({
     },
 
     getImageHeight: function () {
-        return Math.round(this.props.height * 0.5);
+        return Math.round(this.props.height * 0.65);
     },
 
     getImageStyle: function () {
@@ -93,8 +91,9 @@ var Page = React.createClass({
             top: this.getImageHeight() + CONTENT_INSET,
             left: CONTENT_INSET,
             width: this.props.width - 2 * CONTENT_INSET,
-            fontSize: 22,
-            lineHeight: 30,
+            fontSize: 20,
+            textAlign: 'center',
+            lineHeight: 22,
             fontFace: FontFace('Avenir Next Condensed, Helvetica, sans-serif', null, {weight: 500})
         };
     },
@@ -104,8 +103,9 @@ var Page = React.createClass({
             left: CONTENT_INSET,
             width: this.props.width - 2 * CONTENT_INSET,
             fontFace: FontFace('Georgia, serif'),
-            fontSize: 15,
-            lineHeight: 23
+            fontSize: 13,
+            lineHeight: 18,
+            textAlign: 'center'
         };
     },
 

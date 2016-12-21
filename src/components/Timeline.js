@@ -24,7 +24,7 @@ export default class Timeline extends Component{
         this.props.openArticle(pageIndex);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         ArticleRetriever.getArticleLinks().then((articleData)=> {
             this.setState({
                 articles: articleData
@@ -35,9 +35,8 @@ export default class Timeline extends Component{
 
     render() {
         let size = this.getSize();
-        return (
-            <Surface
-                top={0} left={0} width={size.width} height={size.height}>
+        let surfaceMarkup = this.state.articles.length ?
+            <Surface top={0} left={0} width={size.width} height={size.height}>
                 <ListView
                     style={this.getListViewStyle()}
                     snapping={true}
@@ -46,8 +45,8 @@ export default class Timeline extends Component{
                     numberOfItemsGetter={this.getNumberOfPages}
                     itemHeightGetter={this.getPageHeight}
                     itemGetter={this.renderPage} />
-            </Surface>
-        );
+            </Surface> : <Surface top={0} left={0} width={size.width} height={size.height} />;
+        return ( surfaceMarkup );
     }
 
     renderPage(pageIndex, scrollTop) {

@@ -5,6 +5,10 @@ import SwipeableViews from 'react-swipeable-views/lib/SwipeableViews';
 import Pagination from '../components/SliderPagination/Pagination';
 import Article from './Article'
 import ArticleRetriever from '../utils/articleRetriever';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import "./articleSlider.css";
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import HomeIcon from 'material-ui/svg-icons/action/home';
 
 const divStyle = {
     width: '100%', height: '100%', position: 'absolute', top: 0, background: '#fff'
@@ -24,6 +28,10 @@ class ArticleSlider extends Component {
         routerIndex: Number(this.props.router.params.articleId || 0)
     };
 
+    constructor(props){
+        super(props);
+        this.goHome = this.goHome.bind(this);
+    }
 
     componentWillMount() {
         ArticleRetriever.getArticleLinks().then((articlePages) => {
@@ -36,6 +44,18 @@ class ArticleSlider extends Component {
                 })
             })
         });
+    }
+
+    goHome(){
+        this.props.router.push(`/`);
+    }
+
+    componentDidMount(){
+        let app = this;
+        window.onpopstate = function(event){
+            event.preventDefault();
+            app.goHome()
+        };
     }
 
     handleChangeIndex = (index) => {
@@ -60,11 +80,19 @@ class ArticleSlider extends Component {
                     {renderedArticlesMarkup}
                 </SwipeableViews>}
 
-                <Pagination
-                    dots={10}
-                    index={routerIndex % 10}
-                    onChangeIndex={this.handleChangeIndex}
-                />
+                <div style={{position: 'relative'}}>
+                    <MuiThemeProvider muiTheme={getMuiTheme()}>
+                        <div className="home-icon-container">
+                            <HomeIcon color='#319FD6' backgroundColor="#fff" onClick={this.goHome}/>
+                        </div>
+                    </MuiThemeProvider>
+
+                    <Pagination
+                        dots={10}
+                        index={routerIndex % 10}
+                        onChangeIndex={this.handleChangeIndex}
+                    />
+                </div>
 
             </div>
         );
