@@ -50,7 +50,7 @@ self.addEventListener('fetch', function (event) {
 
         //if request is not cached, add it to cache
         console.log('fetching', request.url);
-        return fetch(request, {mode: 'cors'})
+        return fetch(request, {mode: 'no-cors'})
           .then((response) => {
               var responseToCache = response.clone();
 
