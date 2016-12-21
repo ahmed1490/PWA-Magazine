@@ -59,7 +59,7 @@ html, body {
 }*/
 
 
-.example-enter {
+/*.example-enter {
   opacity: 0.01;
 }
 
@@ -75,7 +75,7 @@ html, body {
 
 .example-leave-active {
   opacity: 0;
-}
+}*/
 
 .example-appear {
   opacity: 0.01;

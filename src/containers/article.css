@@ -47,7 +47,7 @@
 
 .article_excerpt {
 	/*margin-top: 2rem;*/
-	padding: 2rem 15px;
+	padding: 0.5rem 15px;
 	font-family: Georgia, serif;
 	font-size: 15px;
 	line-height: 25px;
@@ -56,3 +56,10 @@
 /*	font-size: 18px;
 	line-height: 30px;*/
 }
+
+.article_excerpt_text {
+	margin-bottom: 2em
+}
+
+.image_sub {text-align:left;padding:10px;font-size:12px;color:#323232}
+.image_sub_content{margin-bottom:2px}

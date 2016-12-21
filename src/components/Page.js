@@ -14,6 +14,8 @@ var TEXT_ALPHA_SPEED_IN_MULTIPLIER = 2.6;
 var IMAGE_LAYER_INDEX = 2;
 var TEXT_LAYER_INDEX = 1;
 
+import CONSTANTS from "../utils/constants";
+
 var Page = React.createClass({
 
     propTypes: {
@@ -43,16 +45,19 @@ var Page = React.createClass({
         titleStyle.height = this.titleMetrics.height;
         excerptStyle.top = titleStyle.top + titleStyle.height + CONTENT_INSET;
         excerptStyle.height = this.props.height - excerptStyle.top - CONTENT_INSET;
+
+        let article = this.props.article;
         return (
-            <Group style={groupStyle}
+            article ? <Group style={groupStyle}
                 onClick={() => this.props.openArticle(this.props.pageIndex)}
                 >
-                <Image style={imageStyle} src={this.props.article.imageUrl} fadeIn={true} useBackingStore={true} />
+                    {this.props.article.imageLink && (<Image style={imageStyle} src={`${CONSTANTS.serverDomain}getImage?imageLink=${encodeURIComponent(this.props.article.imageLink)}`}
+                       fadeIn={true} useBackingStore={true} />)}
                 <Group style={this.getTextGroupStyle()} useBackingStore={true}>
-                    <Text style={titleStyle}>{this.props.article.title}</Text>
-                    <Text style={excerptStyle}>{this.props.article.excerpt}</Text>
+                    <Text style={titleStyle}>{this.props.article.heading}</Text>
+                    <Text style={excerptStyle}>{this.props.article.subtitle}</Text>
                 </Group>
-            </Group>
+            </Group> : <div />
         );
     },
 

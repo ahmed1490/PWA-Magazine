@@ -9,14 +9,11 @@ const filesToCache = [
 ];
 
 self.addEventListener('install', function (event) {
-    console.log('Event: Install');
-
     event.waitUntil( //this ensures that the service worker will not install until the code inside waitUntil() has successfully occurred.
         caches.open('z.fm-v1')
         .then(function(cache) {
             return cache.addAll(filesToCache)
             .then(function () {
-                console.info('All files are cached');
                 return self.skipWaiting(); //To forces the waiting service worker to become the active service worker
             })
             .catch(function (error) {
@@ -28,14 +25,11 @@ self.addEventListener('install', function (event) {
 
 
 self.addEventListener('fetch', function (event) {
-    console.log('Event: Fetch', event.request.url);
-
     var request = event.request;
 
     //Tell the browser to wait for network request and respond with below
     caches.match(request).then(function(response) {
       if (response) {
-        console.log('from cache', response.url);
         return response;
       }
 
@@ -65,8 +59,6 @@ self.addEventListener('fetch', function (event) {
 
 //Adding `activate` event listener
 self.addEventListener('activate', function (event) {
-  console.info('Event: Activate');
-
   //Remove old and unwanted caches
   event.waitUntil( 
     caches.keys().then(function(cacheNames) {

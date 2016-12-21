@@ -1,5 +1,6 @@
 const https = require('https');
 const cheerio = require('cheerio');
+const fetch = require('node-fetch');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -14,94 +15,67 @@ function getTextSections(dom, texts){
     return textContent;
 }
 
-function getNewsArticles(dom, articleLinks){
-    let articles = [];
-    articleLinks.each(function(){
-        let articleHref = dom(this).attr('href');
-        if (articleHref.includes('/editorial-damen/news/')){
-            articles.push(articleHref);
+function extractInitialArticleData($, articles){
+    let articleDataList = [];
+    articles.each(function(){
+        let article = $(this);
+        let articleData = {};
+        let articleHref = article.find(".article-body a").attr('href');
+        if (articleHref && articleHref.indexOf('news') > -1){
+            articleData.heading = article.find('.article-headline.entry-title').text();
+            articleData.subtitle = article.find('.article-intro.entry-content').text();
+            articleData.imageLink = article.find('.article-image img').attr('src');
+            articleData.date = article.find('.article-post-date time').text();
+            articleData.link = `https://m.zalando.de/${article.find('.article-body a').attr('href')}`;
+
+            articleDataList.push(articleData);
         }
     });
 
-    return articles;
+    return articleDataList;
 }
 
-function getArticle(uri, callback) {
-
-    let html = "";
-
-    let request = https.request({
-        host: "m.zalando.de",
-        path: uri,
-        port: 443,
-        method: 'GET'
-    }, function (response) {
-        console.log(response.statusCode);
-        response.setEncoding('utf8');
-        response.on('data', function (data) {
-            html = html + data;
-        });
-        response.on('end', function () {
-            let dom = cheerio.load(html);
-            let article = {
-                title: dom("#content .article-content-head .article-headline").text(),
-                subTitle: dom("#content .article-content-head .article-intro").text(),
-                image: dom("#content .article-main img").last().attr("src"),
-                text: getTextSections(dom, dom("#content .article-main")),
-                date: dom("#content .article-meta .article-post-date time").text(),
-                imageCopyright: dom("#content .article-main figure figcaption").text()
-            };
-            callback(article);
-        })
-    });
-
-    request.on('error', function (e) {
-        console.error('Error encountered listening to ' + e);
-        console.info('Retrying...');
-    });
-
-    request.end();
-}
-
-
-function getArticleLinks() {
-    return new Promise((resolve, reject) => {
-        let html = "";
-
-        let request = https.request({
-            host: "m.zalando.de",
-            path: "/editorial-damen/news/",
-            port: 443,
-            method: 'GET'
-        }, function (response) {
-            console.log(response.statusCode);
-            response.setEncoding('utf8');
-            response.on('data', function (data) {
-                html = html + data;
-            });
-            response.on('end', function () {
-                const dom = cheerio.load(html);
-                resolve(getNewsArticles(dom, dom("#content").find(".ng-scope .article .article-body a")));
-            })
-        });
-
-        request.on('error', function (e) {
-            reject('Error encountered listening to ' + e);
-        });
-
-        request.end();
+function getArticleDescription(uri, callback) {
+    return fetch(uri, {
+        "method": 'GET'
+    }).then(function(res) {
+        return res.text();
+    }).then(function(html) {
+        let dom = cheerio.load(html);
+        return {
+            text: getTextSections(dom, dom("#content .article-main")),
+            imageCopyright: dom("#content .article-main figure figcaption").text()
+        };
+    }).catch(error => {
+        console.log(error)
     });
 }
 
-//following is a test. uncomment and run as node js
-/*getArticleLinks((articleLinks)=>{
-    console.log(articleLinks);
-    getArticle(articleLinks[0], (articleData)=>{
-        console.log(articleData)
-    })
-});*/
+function getInitialArticleData(){
+    return fetch(`https://m.zalando.de/editorial-damen/news/`, {
+        "method": 'GET'
+    }).then(function(res) {
+        return res.text()
+    }).then(function(html) {
+        const dom = cheerio.load(html);
+        return extractInitialArticleData(dom, dom("#content .article"));
+    }).catch(error => {
+        console.log(error)
+    });
+}
+
+function sendImage(imageLink){
+    return fetch(imageLink, {
+        "method": 'GET'
+    }).then(function(res) {
+        return res;
+    }).catch(error => {
+        console.log(error)
+    });
+}
 
 module.exports = {
-    getArticleLinks: getArticleLinks,
-    getArticle: getArticle
+    getArticleDescription: getArticleDescription,
+    getInitialArticleData: getInitialArticleData,
+    sendImage: sendImage
 };

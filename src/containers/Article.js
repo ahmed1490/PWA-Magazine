@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import CONSTANTS from '../utils/constants'
 import './article.css';
 
 class Article extends Component {
@@ -6,17 +7,19 @@ class Article extends Component {
         const article = this.props.item;
         return (
             <div className={'article_view'} style={{}}>
-                <div className={'article_hero'} style={{backgroundImage: `url(${article.imageUrl})`}}>
+                <div className={'article_hero'} style={{backgroundImage: `url(${CONSTANTS.serverDomain}getImage?imageLink=${encodeURIComponent(article.imageLink)})`}}>
                     <div className={'article_title'}>
-                        {article.title}
+                        {article.heading}
                     </div>
                 </div>
+                <div className="image_sub">
+                    <div className="image_sub_content">{article.imageCopyright}</div>
+                    <div className="image_sub_content">{article.date}</div>
+                </div>
                 <div className={'article_excerpt'}>
-                    {article.excerpt}
-                    <br/><br/>
-                    {article.excerpt}
-                    <br /><br/>
-                    {article.excerpt}
+                    {article.text && article.text.map((text, textIndex) => {
+                        return <div key={textIndex} className="article_excerpt_text">{text}</div>;
+                    })}
                 </div>
             </div>
         );
