@@ -1,9 +1,12 @@
+//Cache polyfil to support cacheAPI in all browsers
+importScripts('./cache-polyfill.js');
+
+const cacheName = 'z.fm-v1';
+
 const filesToCache = [
   './',
   '/static/js/bundle.js'
 ];
-
-const cacheName = 'z.fm-v1'
 
 self.addEventListener('install', function (event) {
     console.log('Event: Install');
@@ -54,7 +57,26 @@ self.addEventListener('fetch', function (event) {
     })
 });
 
-self.addEventListener('activate', function (event) {
-    console.log('Event: Activate');
 
+
+/*
+  ACTIVATE EVENT: triggered once after registering, also used to clean up caches.
+*/
+
+//Adding `activate` event listener
+self.addEventListener('activate', function (event) {
+  console.info('Event: Activate');
+
+  //Remove old and unwanted caches
+  event.waitUntil( 
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cache) {
+          if (cache !== cacheName) {     //cacheName = 'cache-v1'
+            return caches.delete(cache); //Deleting the cache
+          }
+        })
+      );
+    })
+  );
 });
