@@ -8,14 +8,6 @@ import App from './App';
 import ArticleSlider from './containers/ArticleSlider';
 import './index.css';
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-        .register('/service-worker.js')
-        .then(function () {
-            console.log('Service Worker Registered');
-        });
-}
-
 let RouterNav = <Router history={hashHistory}>
     <Router path="/" component={App}>
         <Router path="/articles/:articleId" component={ArticleSlider}/>
