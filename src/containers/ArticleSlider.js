@@ -88,8 +88,8 @@ class ArticleSlider extends Component {
       <div style={divStyle}>
 
         <SwipeableViews animateHeight index={index} onChangeIndex={this.handleChangeIndex}>
-          {articles.map((article, index) => <div style={styles.slide}>
-              <Article item={article} key={index} />
+          {articles.map((article, index) => <div style={styles.slide} key={index}>
+              <Article item={article} />
           </div>)}
         </SwipeableViews>
 
