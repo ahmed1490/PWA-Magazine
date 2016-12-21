@@ -1,3 +1,5 @@
+//Cache polyfil to support cacheAPI in all browsers
+importScripts('./cache-polyfill.js');
 
 const cacheName = 'z.fm-v1';
 
