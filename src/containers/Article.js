@@ -5,9 +5,11 @@ import './article.css';
 class Article extends Component {
     render() {
         const article = this.props.item;
+        const imageLink = `/getImage?imageLink=${encodeURIComponent(article.imageLink)}`;
+        // console.log('article component', article, article);
         return (
             <div className={'article_view'} style={{}}>
-                <div className={'article_hero'} style={{backgroundImage: `url(${CONSTANTS.serverDomain}getImage?imageLink=${encodeURIComponent(article.imageLink)})`}}>
+                <div className={'article_hero'} style={{backgroundImage: `url(${imageLink})`}}>
                     <div className={'article_title'}>
                         {article.heading}
                     </div>
