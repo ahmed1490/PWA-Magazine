@@ -14,8 +14,6 @@ var TEXT_ALPHA_SPEED_IN_MULTIPLIER = 2.6;
 var IMAGE_LAYER_INDEX = 2;
 var TEXT_LAYER_INDEX = 1;
 
-import CONSTANTS from "../utils/constants";
-
 var Page = React.createClass({
 
     propTypes: {

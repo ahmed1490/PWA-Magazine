@@ -5,6 +5,7 @@
  
   //To show notification
   function toast(msg, options) {
+    console.log("toasted")
     if (!msg) return;
 
     options = options || 3000;

@@ -2,9 +2,15 @@ const express = require('express');
 const Scraper = require("./utils/scraper");
 const cors = require('cors');
 const app = express();
+/*
+const pem = require('pem');
+const https = require('https');
+*/
 
 app.use(cors());
 app.options('*', cors());
+
+app.use(express.static('./build'));
 
 app.get('/getNewsArticleLinks', function(request, response){
     Scraper.getInitialArticleData()
@@ -32,7 +38,24 @@ app.get('/getNewsArticleLinks', function(request, response){
         console.log("Image fetch failed", e);
         response.end(JSON.stringify(e));
     });
+})
+.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, './build', 'index.html'));
+})
+.get('/index.html', function (req, res) {
+    res.sendFile(path.join(__dirname, './build', 'index.html'));
 });
+
+/*
+pem.createCertificate({days:1, selfSigned:true}, function(err, keys){
+    https.createServer({key: keys.serviceKey, cert: keys.certificate}, app).listen(8080, '0.0.0.0', function(err) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log('Listening at https://localhost:8080/');
+    });
+});*/
 
 app.listen(8080, () => {
     console.log(`Server started on port 8080`);

@@ -1,3 +1,3 @@
 module.exports = {
-    serverDomain: `http://${document.domain}:8080/`
+    serverDomain: `https://63b166ff.ngrok.io/`
 };

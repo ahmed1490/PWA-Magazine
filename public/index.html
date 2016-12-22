@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/zlogo_burned.ico">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
     <link rel="manifest" href="/manifest.json">
         
@@ -39,21 +39,6 @@
     -->
 
     <!-- JS Files  -->
-    <script type="text/javascript">
-    //If serviceWorker supports, then register it.
-    if ("serviceWorker" in navigator) {
-      var sw_url = document.domain.match('github') ? '/{repository}/service-worker.js' : 'service-worker.js';
-      var sw_scope = document.domain.match('github') ? '/{repository}/' : './';
-
-      navigator.serviceWorker.register(sw_url, { scope: sw_scope }) //setting scope of sw
-      .then(function (registration) {
-        console.info('Service worker is registered!');
-      })
-      .catch(function (error) {
-        console.error('Service worker failed ', error);
-      });
-    }
-    </script>
     <script src="./js/toast.js"></script>
     <script src="./js/offline.js"></script>
   </body>

@@ -9,6 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import "./articleSlider.css";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import HomeIcon from 'material-ui/svg-icons/action/home';
+import debounce from '../utils/debounce';
 
 const divStyle = {
     width: '100%', height: '100%', position: 'absolute', top: 0, background: '#fff'
@@ -53,14 +54,19 @@ class ArticleSlider extends Component {
     }
 
     componentDidMount(){
-        let app = this;
-        /*window.onpopstate = function(event){
-            event.preventDefault();
-            app.goHome()
-        };*/
+        window.addEventListener('scroll', debounce(
+            function(event){
+                if (event.srcElement.scrollTop > 300){
+                    document.getElementById('nav-container').style.display = 'none';
+                }else{
+                    document.getElementById('nav-container').style.display = 'block';
+                }
+            }, 250)
+        , 250);
     }
 
     handleChangeIndex = (index) => {
+        document.getElementById('nav-container').style.display = 'block';
         this.props.router.push(`/articles/${index}`);
     };
 
@@ -82,7 +88,7 @@ class ArticleSlider extends Component {
                     {renderedArticlesMarkup}
                 </SwipeableViews>}
 
-                <div >
+                <div id="nav-container">
                     <MuiThemeProvider muiTheme={getMuiTheme()}>
                         <div className="home-icon-container">
                             <HomeIcon color='#319FD6' backgroundColor="#fff" onClick={this.goHome}/>

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import CONSTANTS from '../utils/constants'
 import './article.css';
 
 class Article extends Component {

@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import CONSTANTS from './constants';
 
 let articleLinksPromise = getArticleLinks(); //trigger article links
 let articleData = [];
