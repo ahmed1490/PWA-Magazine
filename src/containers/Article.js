@@ -1,4 +1,14 @@
 import React, {Component} from 'react';
+import CONSTANTS from '../utils/constants'
+
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import getMuiTheme from 'material-ui/styles/getMuiTheme';
+// import ShareIcon from 'material-ui/svg-icons/action/open-in-new';
+// import FlatButton from 'material-ui/FlatButton';
+// <MuiThemeProvider muiTheme={getMuiTheme()}>
+//     <ShareIcon color='#878787' className="share_icon" />
+// </MuiThemeProvider>
+
 import './article.css';
 
 class Article extends Component {
@@ -14,8 +24,9 @@ class Article extends Component {
                     </div>
                 </div>
                 <div className="image_sub">
-                    <div className="image_sub_content">{article.imageCopyright}</div>
-                    <div className="image_sub_content">{article.date}</div>
+                    <span className="image_sub_content">{article.imageCopyright}</span>
+                    <span className="image_sub_content">{article.date}</span>
+    
                 </div>
                 <div className={'article_excerpt'}>
                     {article.text && article.text.map((text, textIndex) => {

@@ -48,7 +48,7 @@
 }
 
 .article_excerpt {
-	/*margin-top: 2rem;*/
+	margin-top: 1rem;
 	padding: 0.5rem 15px;
 	font-family: Georgia, serif;
 	font-size: 15px;
@@ -65,3 +65,8 @@
 
 .image_sub {text-align:left;padding:10px;font-size:12px;color:#323232}
 .image_sub_content{margin-bottom:2px}
+
+.share_icon {
+	color: #878787;
+	float: right;
+}
