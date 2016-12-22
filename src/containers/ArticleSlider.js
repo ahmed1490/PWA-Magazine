@@ -97,7 +97,6 @@ class ArticleSlider extends Component {
             </div>
         );
     }
-
 }
 
 export default ArticleSlider;

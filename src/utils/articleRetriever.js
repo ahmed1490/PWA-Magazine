@@ -6,7 +6,7 @@ let articleData = [];
 
 
 function getArticleLinks() {
-    return articleLinksPromise || fetch(`${CONSTANTS.serverDomain}getNewsArticleLinks`, {
+    return articleLinksPromise || fetch(`/getNewsArticleLinks`, {
         method: "GET",
         headers: {
             "Accept": "application/json",
@@ -17,15 +17,16 @@ function getArticleLinks() {
     })
 }
 
-function getArticle(articleLinkData, retries = 10) {
-    return fetch(`${CONSTANTS.serverDomain}getNewsArticleDescription?articleLink=${encodeURIComponent(articleLinkData.link)}`)
+function getArticle(articleLinkData, retries = 3) {
+    return fetch(`/getNewsArticleDescription?articleLink=${encodeURIComponent(articleLinkData.link)}`)
         .then(response => {
             return response.json();
         })
         .then(responseJSON => {
             return { ...articleLinkData, descriptionFetched: true, ...responseJSON}
         })
-        .catch(() => {
+        .catch((err) => {
+            console.error('error in fetching description', err);
             if (retries > 0) {
                 getArticle(articleLinkData, retries-1);
             }
@@ -34,16 +35,26 @@ function getArticle(articleLinkData, retries = 10) {
 
 function getPagesFromIndex(index){
     return getArticleLinks().then((articleLinks) => {
-        articleData = articleLinks;
+        articleData = articleLinks.slice(0, 10);
         /*let startIndex = (index - 3) > 0 ? (index - 3) : 0;
         let endIndex = (index + 3) < articleData.length ? (index + 3) : articleData.length;*/
 
-        const articlePromises = articleData.slice(0, 10).map((articleLinkData) => {
+        cacheLinksToServiceWorker(articleData.map((articleData) => `/getNewsArticleDescription?articleLink=${encodeURIComponent(articleData.link)}`));
+
+        const articlePromises = articleData.map((articleLinkData) => {
             return (articleLinkData.descriptionFetched ? articleLinkData : getArticle(articleLinkData));
         });
 
         return Promise.all(articlePromises).then((updatedArticleData) => {
             return updatedArticleData;
+        });
+    });
+}
+
+function cacheLinksToServiceWorker(linksToCache) {
+    navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+        serviceWorkerRegistration.addEventListener('activate', function (event) {
+            navigator.serviceWorker.controller.postMessage({ command: 'cache', urlsToCache: linksToCache })
         });
     });
 }
