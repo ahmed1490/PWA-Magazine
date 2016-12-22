@@ -9,6 +9,7 @@ const filesToCache = [
     '/static/js/bundle.js',
     './js/offline.js',
     './js/toast.js',
+    './js/push.js',
     '/cache-polyfill.js',
     '/getNewsArticleLinks',
     './manifest.json'
@@ -92,5 +93,28 @@ self.addEventListener('activate', function (event) {
                 })
             );
         })
+    );
+});
+
+self.addEventListener('push', function(event) {
+    console.log('[Service Worker] Push Received.');
+    let pushText = event.data.text();
+
+    const title = 'Push Codelab';
+    const options = {
+        body: pushText,
+        icon: './images/new-icons/android-chrome-192x192.png'
+    };
+
+    event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', function(event) {
+    console.log('[Service Worker] Notification click Received.');
+
+    event.notification.close();
+
+    event.waitUntil(
+        clients.openWindow('https://developers.google.com/web/')
     );
 });

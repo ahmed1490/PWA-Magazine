@@ -42,8 +42,8 @@ class ArticleSlider extends Component {
             ArticleRetriever.getPagesFromIndex(0).then((updatedArticlePages) => {
                 console.info('updatedArticlePages', updatedArticlePages);
                 this.setState({
-                    articles: updatedArticlePages
-                })
+                    articles: updatedArticlePages.filter(article => article)
+                });
             })
             .catch((err) => console.error('promise all failed for getPages', err))
         });

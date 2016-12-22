@@ -10,6 +10,7 @@ import ArticleSlider from './containers/ArticleSlider';
 import SliderTabs from './containers/SliderTabs';
 import './index.css';
 
+const applicationServerPublicKey = 'BDU56VPIW9XO4mTO6Pqmj9xPNTYHMK4rh6S7Ubh-bxoFN4tCN28BSwfO7NlsykkdZw-aMbHqRiO9sIcWbg0tLwU';
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
