@@ -25,9 +25,10 @@ function extractInitialArticleData($, articles){
             articleData.heading = article.find('.article-headline.entry-title').text();
             articleData.subtitle = article.find('.article-intro.entry-content').text();
             articleData.imageLink = article.find('.article-image img').attr('src');
+            // articleData.imageLink = `/getImage?imageLink=${encodeURIComponent(article.imageLink)}``
             articleData.date = article.find('.article-post-date time').text();
             articleData.link = `https://m.zalando.de/${article.find('.article-body a').attr('href')}`;
-
+            articleData.text = ['Loading...'];
             articleDataList.push(articleData);
         }
     });

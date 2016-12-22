@@ -13,7 +13,10 @@ function getArticleLinks() {
             "Content-Type": "application/json"
         }
     }).then(response => {
-        return response.json();
+        return response.json().then((articles) =>{
+            cacheLinksToServiceWorker(articles.slice(0, 10).map((article) => `/getImage?imageLink=${encodeURIComponent(article.imageLink)}`));
+            return articles;
+        });
     })
 }
 
@@ -52,11 +55,19 @@ function getPagesFromIndex(index){
 }
 
 function cacheLinksToServiceWorker(linksToCache) {
-    navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-        serviceWorkerRegistration.addEventListener('activate', function (event) {
-            navigator.serviceWorker.controller.postMessage({ command: 'cache', urlsToCache: linksToCache })
-        });
+    caches.open('z.fm-v1')
+        .then(function(cache) {
+            console.log('caching thigns', linksToCache);
+            return cache.addAll(linksToCache)
     });
+
+    // navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+        // console.log('links to cache', linksToCache, navigator.serviceWorker.ready, serviceWorkerRegistration.active);
+        // serviceWorkerRegistration.addEventListener('fetch', function (event) {
+        //     console.log('SW ACTIVATED: links to cache', linksToCache, navigator.serviceWorker.controller);
+        //     navigator.serviceWorker.controller.postMessage({ command: 'cache', urlsToCache: linksToCache })
+        // });
+    // });
 }
 
 /*function getArticlePages(startIndex) {

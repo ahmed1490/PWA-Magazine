@@ -48,11 +48,12 @@ var Page = React.createClass({
 
 
         let article = this.props.article;
+        const imageLink = `/getImage?imageLink=${encodeURIComponent(this.props.article.imageLink)}`;
         return (
             article ? <Group style={groupStyle}
                 onClick={() => this.props.openArticle(this.props.pageIndex)}
                 >
-                    {article.imageLink && (<Image style={imageStyle} src={`${CONSTANTS.serverDomain}getImage?imageLink=${encodeURIComponent(this.props.article.imageLink)}`}
+                    {article.imageLink && (<Image style={imageStyle} src={imageLink}
                        fadeIn={true} useBackingStore={true} />)}
                 <Group fadeIn={true} style={this.getTextGroupStyle()} useBackingStore={true}>
                     <Text style={titleStyle}>{article.heading}</Text>
